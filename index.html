@@ -9,6 +9,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5LD757J3');</script>
 <!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-645494467"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-645494467');
+</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="index,follow">
   <title>CLOUD PHONE｜電話自動応答・IVR 使い放題</title>
@@ -21655,6 +21664,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>
 (() => {
   'use strict';
+  const ATTRIBUTION_KEY = 'cp_lead_attribution_v1';
+  const RECEIPT_KEY = 'cp_lead_receipt_v1';
+  const ATTRIBUTION_TTL = 24 * 60 * 60 * 1000;
+  const RECEIPT_TTL = 30 * 60 * 1000;
+  const UTM_FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  const clean = (value) => String(value || '').trim().slice(0, 300);
+  const emptyAttribution = () => Object.fromEntries(UTM_FIELDS.map((key) => [key, '']));
+  const read = (key) => {
+    try { return JSON.parse(window.sessionStorage.getItem(key) || 'null'); }
+    catch { return null; }
+  };
+  const write = (key, value) => {
+    try { window.sessionStorage.setItem(key, JSON.stringify(value)); return true; }
+    catch { return false; }
+  };
+  const query = new URLSearchParams(window.location.search);
+  let attribution = emptyAttribution();
+  if (UTM_FIELDS.some((key) => query.has(key))) {
+    // A new tagged landing replaces the campaign as a unit, avoiding mixed sources.
+    UTM_FIELDS.forEach((key) => { attribution[key] = clean(query.get(key)); });
+    write(ATTRIBUTION_KEY, { values: attribution, saved_at: Date.now() });
+  } else {
+    const previous = read(ATTRIBUTION_KEY);
+    if (previous && Number.isFinite(previous.saved_at) && Date.now() - previous.saved_at >= 0 && Date.now() - previous.saved_at <= ATTRIBUTION_TTL) {
+      UTM_FIELDS.forEach((key) => { attribution[key] = clean(previous.values?.[key]); });
+    }
+  }
+
+  const readReceipt = () => {
+    const receipt = read(RECEIPT_KEY);
+    if (!receipt || receipt.accepted !== true || !/^[a-f\d-]{36}$/i.test(receipt.submission_id || '')) return null;
+    const age = Date.now() - receipt.accepted_at;
+    if (!Number.isFinite(age) || age < 0 || age > RECEIPT_TTL) return null;
+    if (!['trial', 'consultation'].includes(receipt.inquiry_type)) return null;
+    return receipt;
+  };
+  const saveReceipt = (payload) => {
+    // No name, email, phone number or free text is persisted for analytics.
+    const receipt = {
+      accepted: true,
+      submission_id: String(payload.submission_id),
+      form_id: String(payload.form_id),
+      inquiry_type: payload.inquiry_type,
+      accepted_at: Date.now(),
+      tracked_at: null,
+      utm_source: clean(payload.utm_source),
+      utm_medium: clean(payload.utm_medium),
+      utm_campaign: clean(payload.utm_campaign)
+    };
+    return write(RECEIPT_KEY, receipt);
+  };
+  const claimReceipt = (id) => {
+    const receipt = readReceipt();
+    if (!receipt || receipt.submission_id !== id || receipt.tracked_at !== null) return false;
+    receipt.tracked_at = Date.now();
+    // Claim before pushing so reload, back/forward or duplicate initialization cannot count twice.
+    return write(RECEIPT_KEY, receipt);
+  };
+  window.CPLeadTracking = Object.freeze({
+    getAttribution: () => ({ ...attribution }),
+    saveReceipt,
+    readReceipt,
+    claimReceipt
+  });
+})();
+
+</script>
+  <script>
+(() => {
+  'use strict';
 
   const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/12525485/41snd0t/';
   const REQUEST_TIMEOUT_MS = 20000;
@@ -21737,10 +21816,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ? 'trial' : 'consultation';
       payload.form_id = form.id;
       payload.page_url = window.location.origin + window.location.pathname;
+      const attribution = window.CPLeadTracking?.getAttribution() || {};
       const query = new URLSearchParams(window.location.search);
       UTM_FIELDS.forEach((key) => {
-        const value = query.get(key);
-        if (value) payload[key] = value.slice(0, 300);
+        payload[key] = String(attribution[key] ?? query.get(key) ?? '').trim().slice(0, 300);
       });
       return payload;
     };
@@ -21815,17 +21894,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           : 'お問い合わせを受け付けました。担当者よりご連絡いたします。';
         refresh();
         status.focus({ preventScroll: true });
-        try {
-          if (Array.isArray(window.dataLayer)) {
-            window.dataLayer.push({
-              event: 'conversion_form_success',
-              form_id: payload.form_id,
-              inquiry_type: payload.inquiry_type
-            });
-          }
-        } catch {
-          // Optional analytics must not turn a confirmed delivery into a failure.
-        }
+        let receiptSaved = false;
+        try { receiptSaved = window.CPLeadTracking?.saveReceipt(payload) === true; }
+        catch { /* Confirmation still works when browser storage is unavailable. */ }
+        // Only a confirmed webhook receipt can start the thank-you transition.
+        const thanksUrl = new URL('thanks.html', window.location.href);
+        thanksUrl.search = receiptSaved ? '' : '?received=1';
+        thanksUrl.hash = '';
+        window.location.assign(thanksUrl.href);
       } catch (requestError) {
         state = 'error';
         inputFields.forEach((field) => { field.disabled = false; });
