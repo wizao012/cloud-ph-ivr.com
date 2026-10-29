@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1 6 54 54" fill="none">
+  <defs>
+    <linearGradient id="royal" x1="12" y1="8" x2="48" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4b8fff"/>
+      <stop offset=".48" stop-color="#2167ed"/>
+      <stop offset="1" stop-color="#1046bc"/>
+    </linearGradient>
+  </defs>
+  <path d="M20 43h-4a12 12 0 1 1 1-24h3a16 16 0 1 1 22 21L20 55V43Z" stroke="url(#royal)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
