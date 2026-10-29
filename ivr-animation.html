@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="robots" content="noindex,nofollow,noarchive">
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none'">
+ <title>CLOUD PHONE｜FV用アニメーション</title>
+ <link rel="icon" href="/favicon.ico">
+ <link rel="stylesheet" href="/assets/release/ivr-animation.7c41827042dc.css">
+ </head>
+<body><svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+ <symbol id="desk" viewbox="0 0 140 100"><path d="M20 35 12 77q-1 8 8 8h100q9 0 8-8l-8-42" fill="#f7fbff" stroke="currentColor" stroke-width="3"></path><path d="M24 34c12-13 80-13 92 0l-2 15q-1 4-7 4H96q-4 0-4-4v-7H48v7q0 4-4 4H33q-7 0-7-4Z" fill="#d8eaff" stroke="currentColor" stroke-width="3" stroke-linejoin="round"></path><rect x="43" y="55" width="54" height="8" rx="2" fill="#c6e3ff"></rect><g fill="currentColor"><rect x="49" y="68" width="10" height="5" rx="1"></rect><rect x="64" y="68" width="10" height="5" rx="1"></rect><rect x="79" y="68" width="10" height="5" rx="1"></rect><rect x="49" y="77" width="10" height="4" rx="1"></rect><rect x="64" y="77" width="10" height="4" rx="1"></rect><rect x="79" y="77" width="10" height="4" rx="1"></rect></g></symbol>
+ <symbol id="handset" viewbox="0 0 48 48"><path d="M13 5c-3 0-6 6-6 11 0 11 15 27 26 27 5 0 10-4 10-7 0-2-7-8-9-8l-5 5c-5-2-10-7-12-12l5-5c0-2-6-11-9-11Z" fill="currentColor"></path></symbol>
+ <symbol id="check" viewbox="0 0 24 24"><path d="m5 12 4 4L20 5" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+ <symbol id="person" viewbox="0 0 48 48"><circle cx="24" cy="15" r="9" fill="currentColor"></circle><path d="M8 43c0-11 5-17 16-17s16 6 16 17" fill="currentColor"></path></symbol>
+</defs></svg>
+<div class="player">
+  <section class="film" data-scene="ring" data-phase="1" role="group" aria-label="IVRが電話を受け、用件を確認し、担当者につなぐ流れ">
+   <p class="sr-only">会社に電話がかかると、雲のキャラクターが音声ガイダンスで応答します。お申し込みは1、ご契約中は2、その他は3。1が選ばれると、必要な担当者へ電話をつなぎます。</p>
+   <div class="scene-titles" aria-hidden="true"><h2 class="scene-title is-current" data-title="1">会社への電話を、<em>自動で受付。</em></h2><h2 class="scene-title" data-title="2">ご用件ごとに、<em>自動で振り分け。</em></h2><h2 class="scene-title" data-title="3">必要な電話を、<em>担当者へ。</em></h2></div>
+   <div class="stage-halo" aria-hidden="true"></div>
+   <div class="routes" aria-hidden="true">
+    <svg class="route-desktop" viewbox="0 0 720 560" preserveaspectratio="none"><path class="route-base" d="M132 430H200"></path><path class="route-base" d="M400 425H583"></path><path class="route-fill" data-path="in" d="M132 430H200"></path><path class="route-fill" data-path="out" d="M400 425H583"></path><g class="incoming-dot"><circle r="5"></circle></g><g class="transfer-token"><circle r="15"></circle><text text-anchor="middle" dy="5">1</text></g></svg>
+    <svg class="route-mobile" viewbox="0 0 360 340" preserveaspectratio="none"><path class="route-base" d="M80 278H115"></path><path class="route-base" d="M230 268H277"></path><path class="route-fill" data-path="in" d="M80 278H115"></path><path class="route-fill" data-path="out" d="M230 268H277"></path><g class="incoming-dot"><circle r="4"></circle></g><g class="transfer-token"><circle r="12"></circle><text text-anchor="middle" dy="4">1</text></g></svg>
+   </div>
+   <div class="source-phone" aria-hidden="true"><span class="source-status">着信</span><div class="desk-illustration"><svg><use href="#desk"></use></svg><i class="ring-line ring-line-1"></i><i class="ring-line ring-line-2"></i><i class="ring-line ring-line-3"></i></div><p>会社の電話</p></div>
+   <div class="character" aria-hidden="true"><div class="character-images"><img decoding="async" class="character-idle" src="/assets/release/cloud-idle-blue-v1.4fbb37aef13c.webp" width="768" height="768" alt=""><img decoding="async" class="character-speaking" src="/assets/release/cloud-reception-blue-v1.fb0a900558ae.webp" width="768" height="768" alt=""></div></div>
+   <div class="voice-panel" aria-hidden="true"><div class="voice-panel-header"><span><span class="voice-icon"><i></i><i></i><i></i><i></i><i></i></span>自動音声ガイダンス</span><span class="voice-state">受付中</span></div><div class="voice-text"><div class="typed-copy"></div><span class="typing-caret"></span></div><div class="voice-bottom"><div class="voice-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="choices"><div class="choice" data-choice="1"><b>1</b><span>お申し込み</span><svg><use href="#check"></use></svg></div><div class="choice" data-choice="2"><b>2</b><span>ご契約中</span></div><div class="choice" data-choice="3"><b>3</b><span>その他</span></div></div></div></div>
+   <div class="selection-note" aria-hidden="true"><b>1</b>お申し込みを選択</div>
+   <div class="destination" aria-hidden="true"><div class="mobile-device"><div class="mobile-notch"></div><span class="call-state">着信待ち</span><span class="caller-avatar"><svg><use href="#person"></use></svg></span><strong>お客様</strong><span class="answer-icon"><svg><use href="#handset"></use></svg></span><span class="call-connected-mark"><svg><use href="#check"></use></svg></span></div><p>担当者へ接続</p></div>
+   <div class="final-message" aria-hidden="true"><svg><use href="#check"></use></svg>電話の取次ぎ、ここまで自動。</div>
+  </section>
+  <div class="player-bottom"><ol class="story-steps" aria-label="場面を選んで確認"><li><button type="button" data-seek="1" aria-pressed="true"><b>1</b><span>音声で受付</span></button></li><li><button type="button" data-seek="2" aria-pressed="false"><b>2</b><span>用件を選択</span></button></li><li><button type="button" data-seek="3" aria-pressed="false"><b>3</b><span>担当へ接続</span></button></li></ol><div class="playback"><button type="button" class="play-toggle" aria-label="一時停止"><span class="pause-icon" aria-hidden="true"></span><span class="toggle-copy">一時停止</span></button><button type="button" class="replay">最初から</button><span class="time" aria-hidden="true">0:00 / 0:17</span><span class="muted-label">無音</span></div><input class="seek-bar" type="range" min="0" max="17000" step="20" value="0" aria-label="アニメーションの再生位置"></div>
+ </div>
+ <script src="/assets/release/ivr-animation-motion.ebb69c31641c.js" defer></script><script src="/assets/release/ivr-animation-child.943fbf8d0820.js" defer></script></body>
+</html>
