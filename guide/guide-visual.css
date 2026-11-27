@@ -1,0 +1,126 @@
+.guide-intro h1 {
+  font-size: clamp(2rem, 3.65vw, 3.25rem);
+  font-weight: 430;
+  line-height: 1.37;
+  letter-spacing: -.047em;
+}
+.guide-intro h1 .catch-line { color: #202633; }
+.guide-intro h1 .particle { font-size: .8em; font-weight: inherit; margin-inline: .035em; }
+.guide-intro h1 strong { font-weight: 760; color: var(--blue); letter-spacing: -.028em; }
+.cover-preview { padding: clamp(.75rem, 1.8vw, 1.45rem); }
+.cover-preview img { width: min(100%, 34rem); }
+
+.mini-scenes {
+  width: 100%;
+  height: 100%;
+  min-height: 4.8rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+}
+.mini-scenes img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.mini-scenes img:first-child { object-position: 42% center; }
+.mini-scenes img:nth-child(2) { object-position: 50% center; }
+.mini-scenes img:last-child { object-position: 44% center; }
+.sample-price .sample-art { background: #edf3fb; color: #335578; }
+.mini-rates {
+  display: grid;
+  grid-template-columns: 1.5rem 1.5rem;
+  justify-items: stretch;
+  align-items: center;
+  gap: .29rem .55rem;
+  padding: .36rem .48rem .5rem;
+  border: 1px solid #c8d8ef;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 3px 5px #405c9d12;
+}
+.mini-rates b { font-size: .6rem; text-align: center; }
+.mini-rates i { height: .2rem; border-radius: 1rem; background: #b4c9e5; }
+.mini-rates i:nth-of-type(even) { background: #d5e0f0; }
+
+#sample-dialog[data-layout="preview-workplace"],
+#sample-dialog[data-layout="preview-price"] {
+  width: min(45rem, calc(100% - 1.5rem));
+}
+.scene-grid, .rate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: .7rem;
+  margin: 1rem 0 .65rem;
+}
+.scene-card, .rate-grid > li {
+  min-width: 0;
+  border: 1px solid #dce6f2;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f7faff;
+}
+.scene-card > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.scene-copy { padding: .55rem .7rem .68rem; }
+.scene-copy h3 {
+  margin: 0 0 .15rem;
+  font-size: .79rem;
+  font-weight: 750;
+  color: #285591;
+}
+.scene-copy p {
+  color: var(--ink);
+  font-size: .875rem;
+  font-weight: 680;
+  line-height: 1.45;
+}
+.scene-copy p span { white-space: nowrap; }
+
+.rate-caption { margin-top: .85rem; color: var(--muted); font-weight: 680; font-size: .78rem; }
+.rate-grid { list-style: none; padding: 0; margin-top: .4rem; }
+.rate-grid > li { display: grid; grid-template-rows: auto auto auto 1fr; padding: .85rem .68rem; }
+.rate-grid h3 { margin: 0; font-size: .92rem; line-height: 1.45; }
+.rate-scope { color: var(--muted); margin-top: .15rem; font-size: .76rem; line-height: 1.5; }
+.rate-amount {
+  display: flex;
+  align-items: baseline;
+  gap: .17rem;
+  white-space: nowrap;
+  margin: .75rem 0 .47rem;
+  color: #172e51;
+  font-variant-numeric: tabular-nums;
+}
+.rate-amount strong { font-size: clamp(1.55rem, 4vw, 2.25rem); font-weight: 780; line-height: 1; letter-spacing: -.04em; }
+.rate-amount small { font-size: .82rem; }
+.rate-detail { border-top: 1px solid #dfe6f0; padding-top: .45rem; font-size: .75rem; color: var(--muted); }
+.rate-sources { color: var(--muted); margin-top: .55rem; font-size: .75rem; }
+.rate-sources summary { cursor: pointer; width: fit-content; }
+.rate-sources p { margin-top: .25rem; }
+.original-page { margin-top: .1rem; }
+
+@media (max-width: 870px) {
+  .guide-intro h1 { font-size: clamp(1.75rem, 7.15vw, 3rem); }
+}
+@media (max-width: 590px) {
+  .scene-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+  .rate-grid { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+  .scene-copy { padding: .38rem .48rem .5rem; }
+  .scene-copy h3 { font-size: .72rem; }
+  .scene-copy p { font-size: .76rem; }
+  .rate-grid > li { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; column-gap: .4rem; padding: .6rem; }
+  .rate-grid h3, .rate-scope, .rate-detail { grid-column: 1; }
+  .rate-detail { border: 0; padding-top: .28rem; }
+  .rate-amount { grid-column: 2; grid-row: 1 / 4; align-self: center; margin: 0; }
+  .rate-amount strong { font-size: 1.55rem; }
+  .rate-amount small { font-size: .7rem; }
+  .mini-scenes { min-height: 4.35rem; }
+  #sample-dialog[data-layout="preview-workplace"] .dialog-actions { margin-top: .7rem; padding-top: .7rem; }
+}
+@media (max-width: 355px) {
+  .guide-intro h1 { font-size: 1.72rem; }
+}
