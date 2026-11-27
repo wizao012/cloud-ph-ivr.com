@@ -182,6 +182,12 @@
       });
       if (!response.ok) throw new Error('Webhook delivery failed');
 
+      try {
+        window.recordGuideLead?.(submission.id);
+      } catch {
+        // Tracking must never prevent receipt of the guide.
+      }
+      submission = null;
       form.reset();
       window.location.assign('thanks.html');
     } catch (error) {
