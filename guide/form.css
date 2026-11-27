@@ -1,0 +1,29 @@
+.applicant-name {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.applicant-name legend {
+  margin-bottom: .55rem;
+  padding: 0;
+  color: inherit;
+  font-weight: 800;
+}
+
+.applicant-name-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+}
+
+.applicant-name-fields label {
+  display: block;
+  margin-bottom: .25rem;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.applicant-name-fields input {
+  min-width: 0;
+}
